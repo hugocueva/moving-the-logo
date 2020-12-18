@@ -1,19 +1,23 @@
-import "./app.css";
+import { useState } from "react";
+import useDimensions from "react-cool-dimensions";
+import * as Constants from "./Constants";
 import Logo from "./components/Logo";
 import Button from "./components/Button";
 import EmptyCell from "./components/EmptyCell";
-import { useState } from "react";
-import useDimensions from "react-cool-dimensions";
+
+import "./app.css";
 
 function App() {
-  const moveByX = 50;
-  const moveByY = 50;
-  const logoWidth = 37;
-  const logoHeight = 55;
   const { ref, width, height } = useDimensions({
     onResize: ({ width, height }) => {
       resizeContainer(width, height);
     },
+  });
+
+  const [state, setState] = useState({
+    logoWidth: Constants.LOGO_WIDTH,
+    logoHeight: Constants.LOGO_HEIGHT,
+    lastClickedButton: undefined,
   });
 
   const resizeContainer = (width, height) => {
@@ -30,17 +34,11 @@ function App() {
     }
   };
 
-  const [state, setState] = useState({
-    logoWidth,
-    logoHeight,
-    lastClickedButton: undefined,
-  });
-
   const moveLogo = (x, y, clickedButton) => {
-    const maxLeft = width - state.logoWidth;
-    const maxTop = height - state.logoHeight;
-    let top = state.logoTop || 0;
-    let left = state.logoLeft || 0;
+    let { logoTop: top = 0, logoLeft: left = 0, logoWidth, logoHeight } = state;
+    const maxLeft = width - logoWidth;
+    const maxTop = height - logoHeight;
+
     top += y;
     left += x;
     if (top > maxTop) {
@@ -69,12 +67,12 @@ function App() {
       <EmptyCell />
       <Button
         showBorder={state.lastClickedButton === "top"}
-        onClick={() => moveLogo(0, moveByY * -1, "top")}
+        onClick={() => moveLogo(0, Constants.MOVE_BY_Y * -1, "top")}
       ></Button>
       <EmptyCell />
       <Button
         showBorder={state.lastClickedButton === "left"}
-        onClick={() => moveLogo(moveByX * -1, 0, "left")}
+        onClick={() => moveLogo(Constants.MOVE_BY_X * -1, 0, "left")}
       />
       <div ref={ref} className="grid-item empty" id="logoContainer">
         <Logo
@@ -86,12 +84,12 @@ function App() {
       </div>
       <Button
         showBorder={state.lastClickedButton === "right"}
-        onClick={() => moveLogo(moveByX, 0, "right")}
+        onClick={() => moveLogo(Constants.MOVE_BY_X, 0, "right")}
       />
       <EmptyCell />
       <Button
         showBorder={state.lastClickedButton === "bottom"}
-        onClick={() => moveLogo(0, moveByY, "bottom")}
+        onClick={() => moveLogo(0, Constants.MOVE_BY_Y, "bottom")}
       />
       <EmptyCell />
     </div>
