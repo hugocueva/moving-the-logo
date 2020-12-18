@@ -1,0 +1,44 @@
+#container {
+  margin-top: 40px;
+  margin-left: auto;
+  margin-right: auto;
+  width: 50%;
+  padding: 10px;
+  min-width: 400px;
+  min-height: 500px;
+  height: 70%;
+  padding: 0px;
+}
+
+.grid {
+  display: grid;
+  grid-gap: 0px;
+  grid-template-columns: auto 70% auto;
+  grid-template-rows: auto 70% auto;
+  border-bottom: 1px solid black;
+  border-left: 1px solid black;
+}
+
+.grid-item {
+  padding: 15px;
+  text-align: center;
+  border-top: 1px solid black;
+  border-right: 1px solid black;
+}
+
+.button {
+  background-color: #63a5d6;
+}
+
+.empty {
+  background-color: #b1b1b1;
+}
+
+#logoContainer {
+  padding: 0px;
+  position: relative;
+}
+
+#logo {
+  position: absolute;
+}
